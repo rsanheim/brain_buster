@@ -1,0 +1,13 @@
+<% unless captcha_passed? %>
+	<span id="brain_buster_captcha" class="<%= if last_captcha_attempt_failed? then 'captcha_failed' end %>">
+	
+		<%= hidden_field_tag :captcha_id, @captcha.id %>
+		
+		<label for="captcha_answer">
+			Spam protection: <%= @captcha.question %>
+		</label>
+		
+		<%= text_field_tag :captcha_answer, params[:captcha_answer], :size => 10, :maxlength => 40 %>
+		
+	</span>
+<% end %>

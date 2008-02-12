@@ -1,0 +1,92 @@
+BrainBuster - A Logic Captcha For Rails
+=======================================
+Homepage: http://opensource.thinkrelevance.com/wiki/BrainBuster
+SVN Repository: http://robsanheim.googlecode.com/svn/trunk/brain_buster
+Mailing List: http://groups.google.com/group/brainbuster-discuss
+
+The latest version removes all depreacted code from 0.7 and below, and does serious clean up all over the place.
+
+Note that you also have to handle captcha failure on your own, since Rails 2.0 requires a render or redirect to halt a filter chain.  This makes sense anyways, as to really have a nice user experience you should be placing the user's half saved model in the flash (or something) and then pulling it back into the form if the captcha fails.
+
+This salt should be consistent across your entire application, else you will run into problems between different Rails instances.  A simple random string can be generated with the following code from irb:
+  [Array.new(32){rand(256).chr}.join].pack("m").chomp
+
+* How to install fresh in a Rails app?
+
+script/plugin install http://robsanheim.googlecode.com/svn/trunk/brain_buster
+script/generate brain_buster_migration 
+rake db:migrate
+optionally set the salt in your ApplicationController
+add the appropriate filters where you want to use the captcha
+add the _captcha.rhtml partial to any views where you want to challenge the userand you are all set!
+
+* Want to check out the source?
+
+svn checkout http://robsanheim.googlecode.com/svn/trunk/brain_buster/ brainbuster
+
+* Need more help?
+
+Join the mailing list: http://groups.google.com/group/brainbuster-discuss
+
+Intro
+=====
+BrainBuster is a logic captcha for Rails.  A logic captcha attempts to detect automated responses (ie spambots) by asking a simple quesiton, such as a word puzzle or math question.  Logic captchas are often easier for humans to answer then image based captchas, but can exclude foreign users or users with cognitive disabilities.  Another possible issue is that answers could be scripted fairly easily by a determined spammer, but I'm guessing in most cases spammers will move on to easier targets.  Generating thousands of questions may also deter scripting. 
+
+Some example question and answers are:
+
+"What is fifteen minus five?" => "10"
+"Which one of these doesn't fit? 'blue, red, yellow, flower'" => 'flower'
+"Spell the word 'dog' backwards." => "god"
+
+For more on logic captchas and alternate approaches, please see http://www.w3.org/TR/turingtest/#logic
+
+Details
+=======================================
+BrainBuster includes a model for storing questions and answers, a small module with filters that is mixed into ActionController::Bases, a small partial to display the question and input form, and a basic stylesheet for styling the partial.  There is also a "captcha_footer" partial that is not functionally required at all, its just included to make it easy to give credit and a little link-love if you find this useful.  The style sheet is also not required of course, it just has a little bit of clean css for the captcha form.
+
+This captcha is meant to be user-friendly, so for a questions like "What is two plus two", all of the following answers will work: "4", "four", "Four", "   four   ".  By default, a user only needs to answer a captcha _once_, then they are cookied and don't have to answer another question
+until they close/reopen their browser.
+
+Installation
+=======================================
+* Generate the migration, modifying questions and answers if you wish:
+
+    script/generate brain_buster_migration
+
+* Copy the style sheet and partials into their appropriate places - this will depend upon your application, though I suggest 
+  placing the partial into /app/views/shared if you want to use it for multiple controllers.
+
+    cp vendor/plugins/brain_buster/assets/stylesheets/captcha.css public/stylesheets/             
+    cp vendor/plugins/brain_buster/views/brain_busters/_*.rhtml app/views/shared/
+
+    # add the style sheet if you like
+    <%= stylesheet_link_tag 'captcha' %>
+
+* Now add the filters for any action(s) you want protected.  Lets say in a PagesController you have a show action that presents a page to a user with some nice ajax capable fields that can directly post to an update action to change the page.  So we need to create a captcha before we show the page so we can present the captcha question to the user, and we need to validate that captcha before we update.  
+
+    class PagesController
+      before_filter :create_brain_buster, :only => [:show]
+      before_filter :validate_brain_buster, :only => [:update]
+      
+      def show... # your normal code is here
+      def update...
+       
+* render the partial in appropriate templates - if we are creating the captcha for the show action, we probably need the 
+  form rendered in show.rhtml.
+
+    - show.rhtml:
+      ... inside your update form somewhere
+      <%= render :partial => 'shared/captcha' %> 
+      <%= render :partial => "shared/captcha_footer" %>  --> only if you want to give credit back...
+
+* Thats it.  Now if the captcha fails on update, the filter chain will halt and flash[:error] will have a message (by default).  You can override that by defining your own captcha_failure method in your controllers.
+
+Real world usage
+================
+You can see the plugin in action at http://madisonrails.com or at http://wiki.rubyonrails.org.
+
+Credits
+=======================================
+BrainBuster is by Rob Sanheim (http://robsanheim.com).  Email: rsanheim at gmail DOT com
+
+Thanks to the creators of the Exception Logger plugin (http://svn.techno-weenie.net/projects/plugins/exception_logger/) and the Unobtrusive Javascript plugin (http://www.ujs4rails.com/), as I referred to their source code for help.
