@@ -1,0 +1,16 @@
+/* Default styles for BrainBuster logic captcha */
+
+#captcha {
+	margin: .5em 0 .5em 0;
+	font-size: 13px;
+}
+
+#captcha_answer {
+	margin-left: .5em;
+}
+
+.captcha_failed input {
+	border-style: inset;
+	border-color: red;
+	border-width: 3px;
+}

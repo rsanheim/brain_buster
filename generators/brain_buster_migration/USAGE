@@ -1,0 +1,14 @@
+Description:
+    The BrainBuster migration generator creates a migration for the BrainBuster model.
+
+    The generator takes a migration name as a first argument.  The migration name may be
+    given in CamelCase or under_score.  'add_brain_buster' is the default.
+    
+    The generator creates a migration class in db/migrate prefixed by its number
+    in the queue.
+
+Example:
+    ./script/generate brain_buster_migration add_brain_buster
+
+    With 4 existing migrations, this will create an AddBrainBuster migration in the
+    file db/migrate/5_add_brain_buster.rb
