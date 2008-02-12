@@ -2,21 +2,23 @@ BrainBuster changelog
 =====================
 
 TODOs (someday/maybe)
+* ensure backwards compatible with rails 1.2.6
+* ensure the random id we find is always really in the DB
 * figure out some sort of declarative API that doesn't suck...
-# protect_with_brain_buster :create => :show, :validate => :update, :on_failure => :show
-# protect :update, :from => [:show, :index]
-# brain_buster_form_on :show, :protect => :update
+  # protect_with_brain_buster :create => :show, :validate => :update, :on_failure => :show
+  # protect :update, :from => [:show, :index]
+  # brain_buster_form_on :show, :protect => :update
 
-TODOs (for 0.8)
-* ensure backwards compatible?
-
-0.8.0
-* fix for Rails 2 compatibility
+0.8.0 (2007/02/12)
+* clean up all over the place
+* fix for Rails 2 compatibility - return false doesn't halt the filter chain
 * rename brain_buster_error_message to brain_buster_failure_message
 * change captcha_failure so it just places failure message into the flash, and also render :text's it -- you must override render_or_redirect_for_captcha_failure to handle failure yourself in a smarter way!
 * change captcha failure to *only render the failure message text* -- you have to handle failure yourself for a better user experience!
+* move to github
+* move project tracking to Relevance open source trac
 
-0.7.2
+0.7.2 (never officially released)
 * add a default salt to make setup easier
 * add info on the salt to readme
 * rename BrainBusterFilters to BrainBusterSystem, since it has more then just filters in it
