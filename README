@@ -13,14 +13,17 @@ You now have to handle captcha failure on your own, since Rails 2.0 requires a r
 
 See the CHANGELOG for more details.
 
+Quick Install
+=============
+
 * How to install fresh in a Rails app?
 
-script/plugin install http://robsanheim.googlecode.com/svn/trunk/brain_buster
-script/generate brain_buster_migration 
-rake db:migrate
-optionally set the cookie salt in your ApplicationController (or just use the default)
-add the appropriate filters where you want to use the captcha
-render the _captcha.rhtml partial to any views where you want to challenge the user and you are all set!
+  script/plugin install http://robsanheim.googlecode.com/svn/trunk/brain_buster
+  script/generate brain_buster_migration 
+  rake db:migrate
+  optionally set the cookie salt in your ApplicationController (or don't touch it to use the default)
+  add the appropriate filters where you want to use the captcha
+  render the _captcha.rhtml partial to any views where you want to challenge the user and you are all set!
 
 * Want to check out the source?
 
