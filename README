@@ -18,7 +18,7 @@ Quick Install
 
 * How to install fresh in a Rails app?
 
-  script/plugin install http://robsanheim.googlecode.com/svn/trunk/brain_buster
+  script/plugin install http://opensource.thinkrelevance.com/svn/brain_buster/trunk/
   script/generate brain_buster_migration 
   rake db:migrate
   optionally set the cookie salt in your ApplicationController (or don't touch it to use the default)
