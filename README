@@ -39,7 +39,7 @@ Join the mailing list: http://groups.google.com/group/brainbuster-discuss
 
 Intro
 =====
-BrainBuster is a logic captcha for Rails.  A logic captcha attempts to detect automated responses (ie spambots) by asking a simple quesiton, such as a word puzzle or math question.  Logic captchas are often easier for humans to answer then image based captchas, but can exclude foreign users or users with cognitive disabilities.  
+BrainBuster is a logic captcha for Rails.  A logic captcha attempts to detect automated responses (ie spambots) by asking a simple question, such as a word puzzle or math question.  Logic captchas are often easier for humans to answer then image based captchas, but can exclude foreign users or users with cognitive disabilities.  
 
 Some example question and answers are:
 
