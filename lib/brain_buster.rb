@@ -2,7 +2,7 @@ require 'humane_integer'
 
  # Simple model to hold sets of questions and answers.
 class BrainBuster < ActiveRecord::Base
-  VERSION = "0.8.0"
+  VERSION = "0.8.1"
   PROJECT_HOME = "http://opensource.thinkrelevance.com/wiki/BrainBuster"
 
   # Attempt to answer a captcha, returns true if the answer is correct.

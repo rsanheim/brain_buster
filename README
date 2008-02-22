@@ -5,7 +5,7 @@ Mailing List: http://groups.google.com/group/brainbuster-discuss
 Git Repository (dev happens here): git://github.com/rsanheim/brain_buster.git
 SVN Repository (read only mirror): http://opensource.thinkrelevance.com/svn/brain_buster/trunk/
 
-Notes (for 0.8.0 release)
+Notes
 =========================
 The latest version removes all deprecated code from 0.7 and below, and does serious clean up all over the place.
 
