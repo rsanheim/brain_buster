@@ -39,7 +39,7 @@ Join the mailing list: http://groups.google.com/group/brainbuster-discuss
 
 Intro
 =====
-BrainBuster is a logic captcha for Rails.  A logic captcha attempts to detect automated responses (ie spambots) by asking a simple quesiton, such as a word puzzle or math question.  Logic captchas are often easier for humans to answer then image based captchas, but can exclude foreign users or users with cognitive disabilities.  Another possible issue is that answers could be scripted fairly easily by a determined spammer, but I'm guessing in most cases spammers will move on to easier targets.  Generating thousands of questions may also deter scripting. 
+BrainBuster is a logic captcha for Rails.  A logic captcha attempts to detect automated responses (ie spambots) by asking a simple quesiton, such as a word puzzle or math question.  Logic captchas are often easier for humans to answer then image based captchas, but can exclude foreign users or users with cognitive disabilities.  
 
 Some example question and answers are:
 
@@ -98,6 +98,7 @@ Troubleshooting and Gotchas
 ===========================
 * If you don't override render_or_redirect_for_captcha_failure, you will see a plain error message for a failed captcha.
 * If you delete a question, the random id finder may try to find that deleted question and blow up.  For now, just insert another question with that same id to fix the issue.
+* The built in questions and answers could be scripted fairly easily by a determined spammer, but usually just having _some_ defense makes bots move on to easier targets.
 
 Real world usage
 ================
