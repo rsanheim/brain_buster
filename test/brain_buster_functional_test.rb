@@ -32,6 +32,11 @@ context "BrainBuster contract" do
     @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp
   end
   
+  specify "should add the plugin view path to the view path" do
+    plugin_view_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "views", "brain_busters"))
+    @controller.view_paths.should.include plugin_view_path
+  end
+  
   specify "should raise an exception if the salt doesnt get set to something" do
     @controller.brain_buster_salt = nil
     lambda { get(:new) }.should.raise(RuntimeError)

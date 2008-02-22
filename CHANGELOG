@@ -9,7 +9,11 @@ TODOs (someday/maybe)
   # protect :update, :from => [:show, :index]
   # brain_buster_form_on :show, :protect => :update
 
-0.8.0 (2007/02/12)
+0.8.1 2008/02/22
+* use append_view_paths instead of directly appending to it, for edge rails compatibility [Hashrocket]
+* remove #send for 1.9 compatibility
+
+0.8.0 2008/02/12
 * clean up all over the place
 * fix for Rails 2 compatibility - return false doesn't halt the filter chain
 * rename brain_buster_error_message to brain_buster_failure_message
