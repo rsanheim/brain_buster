@@ -103,6 +103,6 @@ You can see the plugin in action at http://madisonrails.com or at http://wiki.ru
 Credits
 =======================================
 BrainBuster is by Rob Sanheim (http://robsanheim.com) and Relevance (http://thinkrelevance.com).  
-Email: rsanheim at gmail no spam dot com
+Email: rsanheim at gmail no spam dot com 
 
 Thanks to the creators of the Exception Logger plugin (http://svn.techno-weenie.net/projects/plugins/exception_logger/) and the Unobtrusive Javascript plugin (http://www.ujs4rails.com/), as I referred to their source code for help.
