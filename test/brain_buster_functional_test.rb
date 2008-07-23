@@ -5,9 +5,9 @@ ActionController::Routing::Routes.draw { |map| map.connect ':controller/:action/
 # Fake controller, with a standard show action that where we initialize the captcha,
 # and an update action where the captcha has to be verified.
 class StubController < ActionController::Base
-  self.view_paths << File.expand_path(File.join(File.dirname(__FILE__), "views"))
+  self.append_view_path File.expand_path(File.join(File.dirname(__FILE__), "views"))
   # hack the plugin view path onto the controller
-  self.view_paths << File.expand_path(File.join(File.dirname(__FILE__), "..", "views", "brain_busters"))
+  self.append_view_path File.expand_path(File.join(File.dirname(__FILE__), "..", "views", "brain_busters"))
   
   before_filter :create_brain_buster, :only => [:new]
   before_filter :validate_brain_buster, :only => [:create]
@@ -18,23 +18,16 @@ class StubController < ActionController::Base
   
 end
 
-describe "BrainBuster contract" do
+describe "BrainBuster contract", ActionController::TestCase do
+  tests StubController
   include BrainBusterTestHelper
   
-  setup do
-    @controller = StubController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    @controller.brain_buster_enabled = true
-  end
-  
-  teardown do
-    @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp
-  end
+  before { @controller.brain_buster_enabled = true }
+  after  { @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp }
   
   it "should add the plugin view path to the view path" do
     plugin_view_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "views", "brain_busters"))
-    @controller.view_paths.should.include plugin_view_path
+    @controller.class.view_paths.should.include plugin_view_path
   end
   
   it "should raise an exception if the salt doesnt get set to something" do
@@ -49,15 +42,11 @@ describe "BrainBuster contract" do
   
 end
 
-describe "Create filter" do
+describe "Create filter", ActionController::TestCase do
+  tests StubController
   include BrainBusterTestHelper
   
-  setup do
-    @controller = StubController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    @controller.brain_buster_enabled = true
-  end
+  before { @controller.brain_buster_enabled = true }
 
   it "should alias captcha_passed? method" do
     stub_default_brain_buster
@@ -79,23 +68,15 @@ describe "Create filter" do
     @controller.assigns[:captcha].should == default_stub
   end
   
-  def stub_default_brain_buster
-    BrainBuster.stubs(:find_random_or_previous).with(nil).returns(default_stub)
-  end
-  
 end
 
-describe "Validate filter" do
+describe "Validate filter", ActionController::TestCase do
+  tests StubController
   include BrainBusterTestHelper
   
-  setup do
-    @controller = StubController.new
+  before do
     @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp
     @controller.logger = logger
-    logger.debug("\n" << "=" * 80 << "\n#{name}\n" << "=" * 80)
-    
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     @controller.brain_buster_enabled = true
   end
   
