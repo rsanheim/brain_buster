@@ -18,7 +18,7 @@ class StubController < ActionController::Base
   
 end
 
-context "BrainBuster contract" do
+describe "BrainBuster contract" do
   include BrainBusterTestHelper
   
   setup do
@@ -32,24 +32,24 @@ context "BrainBuster contract" do
     @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp
   end
   
-  specify "should add the plugin view path to the view path" do
+  it "should add the plugin view path to the view path" do
     plugin_view_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "views", "brain_busters"))
     @controller.view_paths.should.include plugin_view_path
   end
   
-  specify "should raise an exception if the salt doesnt get set to something" do
+  it "should raise an exception if the salt doesnt get set to something" do
     @controller.brain_buster_salt = nil
     lambda { get(:new) }.should.raise(RuntimeError)
   end
   
-  specify "should add brain_buster_salt class instance variable method to ActionController::Base" do
+  it "should add brain_buster_salt class instance variable method to ActionController::Base" do
     ActionController::Base.should.respond_to(:brain_buster_salt)
     @controller.should.respond_to(:brain_buster_salt)
   end
   
 end
 
-context "Create filter" do
+describe "Create filter" do
   include BrainBusterTestHelper
   
   setup do
@@ -59,7 +59,7 @@ context "Create filter" do
     @controller.brain_buster_enabled = true
   end
 
-  specify "should alias captcha_passed? method" do
+  it "should alias captcha_passed? method" do
     stub_default_brain_buster
     get :new
     @controller.should.respond_to :captcha_passed?
@@ -67,13 +67,13 @@ context "Create filter" do
     @controller.captcha_passed?.should.be @controller.captcha_previously_passed?
   end
   
-  specify "should create captcha for first request" do
+  it "should create captcha for first request" do
     stub_default_brain_buster
     get :new
     @controller.assigns[:captcha].should == default_stub
   end
 
-  specify "should retrieve same captcha for second request" do
+  it "should retrieve same captcha for second request" do
     BrainBuster.expects(:find_random_or_previous).with('1').returns(default_stub)
     get :new, :captcha_id => '1'
     @controller.assigns[:captcha].should == default_stub
@@ -85,7 +85,7 @@ context "Create filter" do
   
 end
 
-context "Validate filter" do
+describe "Validate filter" do
   include BrainBusterTestHelper
   
   setup do
@@ -99,20 +99,20 @@ context "Validate filter" do
     @controller.brain_buster_enabled = true
   end
   
-  specify "should ignore filters if brain buster is not enabled" do
+  it "should ignore filters if brain buster is not enabled" do
     @controller.brain_buster_enabled = false
     BrainBuster.expects(:find_random_or_previous).never
     post :create
     @response.body.should == "Success!"
   end
   
-  specify "should fail validation and halt action if captcha is missing" do
+  it "should fail validation and halt action if captcha is missing" do
     post :create
     flash[:error].should == @controller.brain_buster_failure_message
     @response.body.should == @controller.brain_buster_failure_message
   end
   
-  specify "should indicate previous captcha attempt failed" do 
+  it "should indicate previous captcha attempt failed" do 
     stub_default_brain_buster
     @controller.stubs(:render)
     
@@ -121,21 +121,21 @@ context "Validate filter" do
     cookies['captcha_status'].should == [BrainBusterSystem.encrypt("failed", @controller.brain_buster_salt)]
   end
   
-  specify "should fail validation and render failure message text if captcha answer is wrong" do 
+  it "should fail validation and render failure message text if captcha answer is wrong" do 
     stub_default_brain_buster
     post :create, :captcha_id => '1', :captcha_answer => "5"
     flash[:error].should == @controller.brain_buster_failure_message
     @response.body.should == @controller.brain_buster_failure_message
   end
   
-  specify "should validate captcha answer and continue action on success" do
+  it "should validate captcha answer and continue action on success" do
     stub_default_brain_buster
     post :create, :captcha_id => '1', :captcha_answer => "Four"
     @controller.assigns[:captcha].should == default_stub
     @response.body.should == "Success!"
   end
   
-  specify "should bypass captcha and never hit the database if it has been previously passed" do
+  it "should bypass captcha and never hit the database if it has been previously passed" do
     BrainBuster.expects(:find_random_or_previous).never
     @request.cookies["captcha_status"] = CGI::Cookie.new('captcha_status', BrainBusterSystem.encrypt("passed", @controller.brain_buster_salt))
     
