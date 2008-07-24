@@ -26,6 +26,11 @@ describe "BrainBuster model object" do
       day_before_tuesday.attempt?(answer).should.blaming(answer).be(true)
     end
   end
+  
+  it "should ignore case in the answer" do
+    stub_brain_buster(:question => "Spell god backwards", :answer => "Dog").attempt?("dog").should == true
+    stub_brain_buster(:question => "Spell god backwards", :answer => "Dog").attempt?("DOG").should == true
+  end
 
   # fixtures
   def ten_minus_ten

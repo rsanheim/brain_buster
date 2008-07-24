@@ -12,6 +12,7 @@ TODOs (someday/maybe)
 HEAD
 * convert to new style describe/it in specs
 * fix tests for Rails 2.1 and the view path changes
+* ignore case sensitivity in string answers
 
 0.8.1 2008/02/22
 * use append_view_paths instead of directly appending to it, for edge rails compatibility [Hashrocket]

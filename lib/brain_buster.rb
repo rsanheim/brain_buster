@@ -11,7 +11,7 @@ class BrainBuster < ActiveRecord::Base
     if answer_is_integer?
       return string == answer || string == HumaneInteger.new(answer.to_i).to_english
     else
-      return string == answer
+      return string == answer.downcase
     end
   end
 
