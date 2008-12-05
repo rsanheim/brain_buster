@@ -5,10 +5,10 @@ require 'rake/rdoctask'
 desc 'Default: run unit tests.'
 task :default => :test
 
-desc 'Test the brain_buster plugin.'
+desc 'Run the brain_buster spec suite.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
+  t.pattern = 'spec/**/*_spec.rb'
   t.verbose = true
 end
 

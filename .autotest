@@ -3,9 +3,9 @@ Autotest.add_hook :initialize do |at|
   
   # rerun all tests for any change to a lib file
   at.add_mapping(%r%^lib/(.*)\.rb$%) do |filename, match|
-    at.files_matching %r%^test/.*_test.rb$%
+    at.files_matching %r%^spec/.*_spec.rb$%
   end
-  at.add_mapping(/^test.*\/.*_test\.rb$/) do |filename, match|
+  at.add_mapping(/^spec.*\/.*_spec\.rb$/) do |filename, match|
     filename
   end
  
