@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'brain_buster_test_helper')
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
 ActionController::Routing::Routes.draw { |map| map.connect ':controller/:action/:id' }
 
@@ -59,13 +59,13 @@ describe "Create filter", ActionController::TestCase do
   it "should create captcha for first request" do
     stub_default_brain_buster
     get :new
-    @controller.assigns[:captcha].should == default_stub
+    assigns(:captcha).should == default_stub
   end
 
   it "should retrieve same captcha for second request" do
     BrainBuster.expects(:find_random_or_previous).with('1').returns(default_stub)
     get :new, :captcha_id => '1'
-    @controller.assigns[:captcha].should == default_stub
+    assigns(:captcha).should == default_stub
   end
   
 end
@@ -112,7 +112,7 @@ describe "Validate filter", ActionController::TestCase do
   it "should validate captcha answer and continue action on success" do
     stub_default_brain_buster
     post :create, :captcha_id => '1', :captcha_answer => "Four"
-    @controller.assigns[:captcha].should == default_stub
+    assigns(:captcha).should == default_stub
     @response.body.should == "Success!"
   end
   
