@@ -5,8 +5,8 @@ require 'test/unit'
 
 begin
   require 'rubygems'
-  gem 'test-spec', '>= 0.3.0'
-  gem 'mocha', '>= 0.4.0'
+  gem 'test-spec', '>= 0.4.0'
+  gem 'mocha', '~> 0.9.0'
   gem "log_buddy"
   
   require 'mocha'
@@ -17,7 +17,7 @@ begin
   require 'action_controller/test_process'
   require 'active_record'
 rescue LoadError => e
-  puts '=> The BrainBuster test suite depends on the following gems: mocha 0.4+, test-spec 0.3+, active_support, and action_controller.'
+  puts '=> The BrainBuster test suite depends on the following gems: mocha 0.9+, test-spec 0.4+, log_buddy, active_support, and action_controller.'
   puts e.backtrace
 end
 
