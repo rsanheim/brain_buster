@@ -54,9 +54,3 @@ HEAD (working towards 0.9)
 
 TODOs (someday/maybe)
 * ensure backwards compatible with rails 1.2.6
-* ensure the random id we find is always really in the DB
-* figure out some sort of declarative API that doesn't suck...
-  # protect_with_brain_buster :create => :show, :validate => :update, :on_failure => :show
-  # protect :update, :from => [:show, :index]
-  # brain_buster_form_on :show, :protect => :update
-
