@@ -22,7 +22,7 @@ Quick Install
   rake db:migrate
   optionally set the cookie salt in your ApplicationController (or don't touch it to use the default)
   add the appropriate filters where you want to use the captcha
-  render the _captcha.rhtml partial to any views where you want to challenge the user and you are all set!
+  render the _captcha partial to any views where you want to challenge the user and you are all set!
 
 * Want to check out the source?
 
@@ -74,9 +74,9 @@ Installation
       end
        
 * render the partial in appropriate templates - if we are creating the captcha for the show action, we probably need the 
-  form rendered in show.rhtml.
+  form rendered in show.html.erb.
 
-    - show.rhtml:
+    - show.html.erb:
       ... inside your update form somewhere
       <%= render :partial => '/captcha' %> 
       <%= render :partial => "/captcha_footer" %>  --> optional, only if you want to give credit back...
