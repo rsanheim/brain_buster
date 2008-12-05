@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 $:.reject! { |e| e.include? 'TextMate' }
 ENV['RAILS_ENV'] = 'test' unless ENV['RAILS_ENV']
-require 'test/unit'
 
 begin
   require 'rubygems'
@@ -24,7 +23,7 @@ end
 LogBuddy.init
 require File.dirname(__FILE__) + '/../init'
 
-module BrainBusterTestHelper
+module SpecHelper
   BAR = "=" * 80
   LOG_FILE_NAME = File.expand_path(File.join(File.dirname(__FILE__), "test.log"))
    

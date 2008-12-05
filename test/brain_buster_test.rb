@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe "BrainBuster model object" do
-  include BrainBusterTestHelper
+  include SpecHelper
   
   it "should answer simple math ignoring spacing" do
     two_plus_two.attempt?("4").should.be true

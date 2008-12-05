@@ -20,7 +20,7 @@ end
 
 describe "BrainBuster contract", ActionController::TestCase do
   tests StubController
-  include BrainBusterTestHelper
+  include SpecHelper
   
   before { @controller.brain_buster_enabled = true }
   after  { @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp }
@@ -44,7 +44,7 @@ end
 
 describe "Create filter", ActionController::TestCase do
   tests StubController
-  include BrainBusterTestHelper
+  include SpecHelper
   
   before { @controller.brain_buster_enabled = true }
 
@@ -72,7 +72,7 @@ end
 
 describe "Validate filter", ActionController::TestCase do
   tests StubController
-  include BrainBusterTestHelper
+  include SpecHelper
   
   before do
     @controller.brain_buster_salt = [Array.new(32){rand(256).chr}.join].pack("m").chomp
