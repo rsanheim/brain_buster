@@ -1,15 +1,12 @@
 BrainBuster changelog
 =====================
 
-TODOs (someday/maybe)
-* ensure backwards compatible with rails 1.2.6
-* ensure the random id we find is always really in the DB
-* figure out some sort of declarative API that doesn't suck...
-  # protect_with_brain_buster :create => :show, :validate => :update, :on_failure => :show
-  # protect :update, :from => [:show, :index]
-  # brain_buster_form_on :show, :protect => :update
+HEAD (working towards 0.9)
+* TODO: integration testing against Rails
 
-HEAD
+0.8.2
+* use direct ivar assigned, not assigns, as assigns is broken in Rails 2.2+
+* .html.erb, not .rhtml
 * convert to new style describe/it in specs
 * fix tests for Rails 2.1 and the view path changes
 * ignore case sensitivity in string answers
@@ -54,3 +51,12 @@ HEAD
 
 0.5
 * first public release
+
+TODOs (someday/maybe)
+* ensure backwards compatible with rails 1.2.6
+* ensure the random id we find is always really in the DB
+* figure out some sort of declarative API that doesn't suck...
+  # protect_with_brain_buster :create => :show, :validate => :update, :on_failure => :show
+  # protect :update, :from => [:show, :index]
+  # brain_buster_form_on :show, :protect => :update
+
