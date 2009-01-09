@@ -26,6 +26,7 @@ require File.dirname(__FILE__) + '/../init'
 
 module SpecHelper
   LOG_FILE_NAME = File.expand_path(File.join(File.dirname(__FILE__), "tmp", "test.log"))
+  DATABASE = File.expand_path(File.join(File.dirname(__FILE__), "tmp", "brain_buster.sqlite3"))
    
   def logger
     @logger ||= Logger.new(LOG_FILE_NAME)
@@ -53,7 +54,7 @@ module SpecHelper
     gem 'sqlite3-ruby'
 
     ActiveRecord::Base.logger = Logger.new(LOG_FILE_NAME)
-    ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => '/tmp/brain_buster.sqlite')
+    ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => DATABASE)
     ActiveRecord::Migration.verbose = false
 
     ActiveRecord::Schema.define do
@@ -62,7 +63,10 @@ module SpecHelper
         t.column :answer, :string
       end
     end
-    
+  end
+  
+  def teardown_database
+    FileUtils.rm DATABASE
   end
   
 end

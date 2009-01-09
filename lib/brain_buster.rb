@@ -15,7 +15,7 @@ class BrainBuster < ActiveRecord::Base
   end
 
   def self.find_random_or_previous(id = nil)
-    id.nil? ? find_random : find_specific_or_fallback
+    id ? find_specific_or_fallback(id) : find_random
   end
 
   def self.random_function
@@ -31,7 +31,7 @@ class BrainBuster < ActiveRecord::Base
     find(:first, :order => random_function) 
   end
   
-  def self.find_specific_or_fallback
+  def self.find_specific_or_fallback(id)
     find(id)
   rescue ActiveRecord::RecordNotFound
     find_random

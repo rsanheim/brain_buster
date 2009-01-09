@@ -52,6 +52,7 @@ describe "BrainBuster" do
   describe "with real db" do
     include SpecHelper
     before { setup_database }
+    after  { teardown_database }
     
     it "finds random" do
       brain_buster = BrainBuster.create!(:question => "What is best in life?", 
@@ -62,9 +63,9 @@ describe "BrainBuster" do
     it "finds specific record by id if provided" do
       brain_buster_1 = BrainBuster.create!(:question => "What is best in life?", 
         :answer => "To crush your enemies, see them driven before you, and to hear the lamentation of the women.")
-      brain_buster_2 = BrainBuster.create!(:question => "What is 2+2?", :answer => "4")
+      brain_buster_2 = BrainBuster.create!(:question => "What is 2+2?", :answer => "4").reload
       
-      BrainBuster.find_random_or_previous(brain_buster_2.id).should == brain_buster_2.reload
+      BrainBuster.find_random_or_previous(brain_buster_2.id).should == brain_buster_2
     end
     
     it "falls back to a different record if a specific brain_buster was delete" do
