@@ -15,19 +15,27 @@ class BrainBuster < ActiveRecord::Base
   end
 
   def self.find_random_or_previous(id = nil)
-    id.nil? ? self.find(random_id(first_id, count)) : find(id)
+    # Buggy code referenced in 
+    # http://relevance.lighthouseapp.com/projects/20527/tickets/4-ensure-the-random-id-we-find-is-always-really-in-the-db
+    # id.nil? ? self.find(random_id(first_id, count)) : find(id)
+    id.nil? ? find(:first, :order => random_function) : self.smart_find(id)
   end
 
   private
 
-  def self.random_id(first_id, count)
-    Kernel.rand(count) + first_id
+  def self.smart_find(id)
+    find(id) || find(:first, :order => random_function) 
   end
+  
+  # No longer needed with above fix
+  # def self.random_id(first_id, count)
+  #   Kernel.rand(count) + first_id
+  # end
 
-  # return first valid id
-  def self.first_id
-    @first_id ||= find(:all, :order => "id").first.id
-  end
+  # return first valid id : no longer needed
+  # def self.first_id
+  #  @first_id ||= find(:all, :order => "id").first.id
+  # end
 
   def answer_is_integer?
     int_answer = answer.to_i

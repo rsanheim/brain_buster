@@ -124,4 +124,18 @@ describe "Validate filter", ActionController::TestCase do
     @response.body.should == "Success!"
   end
   
+  describe "User manually deletes a record from the db", ActionController::TestCase do
+    tests StubController
+    include SpecHelper
+    
+    xit "successfully returns a record when the requested id does not exist in the db" do
+      stub_default_brain_buster
+      BrainBuster.expects(:smart_find).with('123789')
+      
+      get :new, :captcha_id => '123789'
+      assigns(:captcha).should.not.be nil
+    end
+    
+  end
+  
 end
