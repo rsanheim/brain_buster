@@ -56,8 +56,19 @@ describe "BrainBuster" do
     it "finds random" do
       brain_buster = BrainBuster.create!(:question => "What is best in life?", 
         :answer => "To crush your enemies, see them driven before you, and to hear the lamentation of the women.")
-      BrainBuster.find_random_or_previous.should == brain_buster
+      BrainBuster.find_random_or_previous.should == brain_buster.reload
     end
+    
+    it "finds specific record by id if provided" do
+      brain_buster_1 = BrainBuster.create!(:question => "What is best in life?", 
+        :answer => "To crush your enemies, see them driven before you, and to hear the lamentation of the women.")
+      brain_buster_2 = BrainBuster.create!(:question => "What is 2+2?", :answer => "4")
+      
+      BrainBuster.find_random_or_previous(brain_buster_2.id).should == brain_buster_2.reload
+      
+    end
+    
+    
   end
   
 end

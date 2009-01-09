@@ -21,6 +21,13 @@ class BrainBuster < ActiveRecord::Base
     id.nil? ? find(:first, :order => random_function) : self.smart_find(id)
   end
 
+  def self.random_function
+    case connection.adapter_name.downcase
+      when /sqlite/, /postgres/ then "random()"
+      else                           "rand()"
+    end
+  end
+
   private
 
   def self.smart_find(id)
@@ -41,4 +48,5 @@ class BrainBuster < ActiveRecord::Base
     int_answer = answer.to_i
     (int_answer != 0) || (int_answer == 0 && answer == "0")
   end
+  
 end
