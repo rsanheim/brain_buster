@@ -129,8 +129,8 @@ describe "Validate filter", ActionController::TestCase do
     include SpecHelper
     
     xit "successfully returns a record when the requested id does not exist in the db" do
-      stub_default_brain_buster
-      BrainBuster.expects(:smart_find).with('123789')
+      # stub_default_brain_buster
+      # BrainBuster.expects(:smart_find).with('123789')
       
       get :new, :captcha_id => '123789'
       assigns(:captcha).should.not.be nil
