@@ -45,4 +45,15 @@ describe "BrainBuster model object" do
     stub_brain_buster(:question => "What is the day before Tuesday?", :answer => "monday")
   end
   
+  
+  describe "with real db" do
+    include SpecHelper
+    before { setup_database }
+    
+    it "finds random" do
+      brain_buster = BrainBuster.create!(:question => "What is best in life?", 
+        :answer => "To crush your enemies, see them driven before you, and to hear the lamentation of the women.")
+      BrainBuster.find_random_or_previous.should == brain_buster
+    end
+  end
 end

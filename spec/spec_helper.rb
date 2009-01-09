@@ -57,4 +57,20 @@ module SpecHelper
     BrainBuster.stubs(:find_random_or_previous).returns(default_stub)
   end
   
+  def setup_database
+    gem 'sqlite3-ruby'
+
+    ActiveRecord::Base.logger = Logger.new(LOG_FILE_NAME)
+    ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => '/tmp/brain_buster.sqlite')
+    ActiveRecord::Migration.verbose = false
+
+    ActiveRecord::Schema.define do
+      create_table :brain_busters, :force => true do |t|
+        t.column :question, :string
+        t.column :answer, :string
+      end
+    end
+    
+  end
+  
 end
