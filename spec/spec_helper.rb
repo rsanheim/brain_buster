@@ -18,6 +18,7 @@ begin
 rescue LoadError => e
   puts '=> The BrainBuster test suite depends on the following gems: mocha 0.9+, test-spec 0.4+, log_buddy, active_support, and action_controller.'
   puts e.backtrace
+  exit(1)
 end
 
 LogBuddy.init
