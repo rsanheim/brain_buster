@@ -6,7 +6,7 @@ begin
   require 'rubygems'
   gem 'test-spec', '>= 0.4.0'
   gem 'mocha', '~> 0.9.0'
-  gem "log_buddy"
+  gem "relevance-log_buddy", "~> 0.2"
   
   require 'mocha'
   require 'test/spec'
