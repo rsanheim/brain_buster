@@ -25,19 +25,10 @@ LogBuddy.init
 require File.dirname(__FILE__) + '/../init'
 
 module SpecHelper
-  BAR = "=" * 80
-  LOG_FILE_NAME = File.expand_path(File.join(File.dirname(__FILE__), "test.log"))
+  LOG_FILE_NAME = File.expand_path(File.join(File.dirname(__FILE__), "tmp", "test.log"))
    
-  def self.included(base)
-    base.before { log_spec }
-  end
-  
   def logger
     @logger ||= Logger.new(LOG_FILE_NAME)
-  end
-  
-  def log_spec
-    logger.debug("\n" << BAR << "\n#{name}\n" << BAR)
   end
   
   Column = ActiveRecord::ConnectionAdapters::Column
