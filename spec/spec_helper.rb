@@ -2,24 +2,18 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 $:.reject! { |e| e.include? 'TextMate' }
 ENV['RAILS_ENV'] = 'test' unless ENV['RAILS_ENV']
 
-begin
-  require 'rubygems'
-  gem 'test-spec', '>= 0.4.0'
-  gem 'mocha', '~> 0.9.0'
-  gem "relevance-log_buddy", "~> 0.2"
-  
-  require 'mocha'
-  require 'test/spec'
-  require 'log_buddy'
-  require 'active_support'
-  require 'action_controller'
-  require 'action_controller/test_process'
-  require 'active_record'
-rescue LoadError => e
-  puts '=> The BrainBuster test suite depends on the following gems: mocha 0.9+, test-spec 0.4+, log_buddy, active_support, and action_controller.'
-  puts e.backtrace
-  exit(1)
-end
+require 'rubygems'
+gem 'test-spec', '>= 0.4.0'
+gem 'mocha', '~> 0.9.0'
+gem "relevance-log_buddy", "~> 0.2"
+
+require 'mocha'
+require 'test/spec'
+require 'log_buddy'
+require 'active_support'
+require 'action_controller'
+require 'action_controller/test_process'
+require 'active_record'
 
 LogBuddy.init
 require File.dirname(__FILE__) + '/../init'
