@@ -10,6 +10,8 @@ The latest version removes all deprecated code from 0.7 and below, and does seri
 
 You now have to handle captcha failure on your own, since Rails 2.0 requires a render or redirect to halt a filter chain.  This makes sense anyways, because if you really want a decent user experience you should be placing the user's half saved model in the flash (or an ivar, or a cookie, or whatever) and then pulling it back into the form if the captcha fails.
 
+Not currently support under Rails 2.3.x, as I'm seeing breakage in the specs and haven't investigated to see if it really breaks the plugin.
+
 See the CHANGELOG for more details.
 
 Quick Install
