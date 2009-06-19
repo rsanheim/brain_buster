@@ -3,6 +3,7 @@ BrainBuster - A Logic Captcha For Rails
 Homepage: http://opensource.thinkrelevance.com/wiki/BrainBuster
 Mailing List: http://groups.google.com/group/brainbuster-discuss
 Git Repository (dev happens here): git://github.com/rsanheim/brain_buster.git
+Continuous Integration: http://runcoderun.com/rsanheim/brain_buster
 
 Notes
 =========================
