@@ -20,3 +20,12 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+begin
+  gem "ianwhite-garlic"
+  require 'garlic/tasks'
+rescue LoadError => e
+  puts "Garlic not available for testing against multiple versions of Rails.  To install: "
+  puts "gem install ianwhite-garlic --source=http://gems.github.com"
+  exit(1)
+end
