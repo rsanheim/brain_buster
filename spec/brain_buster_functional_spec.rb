@@ -99,7 +99,7 @@ describe "Validate filter", ActionController::TestCase do
     
     post :create, :captcha_id => '1', :captcha_answer => "5"
     flash[:error].should == @controller.brain_buster_failure_message
-    cookies['captcha_status'].should == [BrainBusterSystem.encrypt("failed", @controller.brain_buster_salt)]
+    cookies['captcha_status'].should == BrainBusterSystem.encrypt("failed", @controller.brain_buster_salt)
   end
   
   it "should fail validation and render failure message text if captcha answer is wrong" do 
@@ -118,8 +118,10 @@ describe "Validate filter", ActionController::TestCase do
   
   it "should bypass captcha and never hit the database if it has been previously passed" do
     BrainBuster.expects(:find_random_or_previous).never
-    @request.cookies["captcha_status"] = CGI::Cookie.new('captcha_status', BrainBusterSystem.encrypt("passed", @controller.brain_buster_salt))
-    
+    # < Rails 2.3
+    # @request.cookies["captcha_status"] = CGI::Cookie.new('captcha_status', BrainBusterSystem.encrypt("passed", @controller.brain_buster_salt))
+    # > Rails 2.3
+    @request.cookies["captcha_status"] = BrainBusterSystem.encrypt("passed", @controller.brain_buster_salt)
     post :create
     @response.body.should == "Success!"
   end
