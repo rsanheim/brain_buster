@@ -1,10 +1,12 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
+require File.join(File.dirname(__FILE__), *%w[.. example_helper])
 
-describe "HumaneInteger" do
+describe HumaneInteger do
 
   it "should respond to english method" do
     one = HumaneInteger.new(1)
-    one.respond_to?(:to_english).should.not == nil
+    lambda {
+      one.to_english
+    }.should_not raise_error
   end
   
   it "should have english words for ints" do

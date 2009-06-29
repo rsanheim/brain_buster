@@ -2,14 +2,24 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-desc 'Default: run unit tests.'
-task :default => :test
+begin 
+  gem "spicycode-micronaut"
+  require 'micronaut/rake_task'
+  
+  Micronaut::RakeTask.new(:examples) do |examples|
+    examples.pattern = 'examples/**/*_example.rb'
+    examples.ruby_opts << '-Ilib -Iexamples'
+  end
 
-desc 'Run the brain_buster spec suite.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.pattern = 'spec/**/*_spec.rb'
-  t.verbose = true
+  Micronaut::RakeTask.new(:rcov) do |examples|
+    examples.pattern = 'examples/**/*_example.rb'
+    examples.rcov_opts = %[-Ilib -Iexamples --exclude "gems/*,/Library/Ruby/*,config/*" --text-summary  --sort coverage]
+    examples.rcov = true
+  end
+
+  task :default => 'rcov'
+rescue LoadError
+  puts "Micronaut not available to run tests.  Install it with: sudo gem install spicycode-micronaut -s http://gems.github.com"
 end
 
 desc 'Generate documentation for the brain_buster plugin.'
