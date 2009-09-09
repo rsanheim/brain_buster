@@ -1,6 +1,8 @@
 # Delegate to Integer to allow translating numbers to English words
 # Credit goes to  Ruby Quiz #25 http://www.rubyquiz.com/quiz25.html
 # and Glenn Parker's solution http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/135449
+require 'delegate'
+
 class HumaneInteger < DelegateClass(Integer)
   Ones = %w[ zero one two three four five six seven eight nine ]
   Teen = %w[ ten eleven twelve thirteen fourteen fifteen
