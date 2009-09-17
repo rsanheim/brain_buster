@@ -1,6 +1,7 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 $:.reject! { |e| e.include? 'TextMate' }
 ENV['RAILS_ENV'] = 'test' unless ENV['RAILS_ENV']
+RAILS_ROOT = File.expand_path(File.join(File.dirname(__FILE__), *%w[.. ..]))
 
 require 'active_support'
 require 'action_controller'
