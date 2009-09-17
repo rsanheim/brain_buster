@@ -3,7 +3,6 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 begin 
-  gem "spicycode-micronaut"
   require 'micronaut/rake_task'
   
   Micronaut::RakeTask.new(:examples) do |examples|
@@ -16,8 +15,12 @@ begin
     examples.rcov_opts = %[-Ilib -Iexamples --exclude "gems/*,/Library/Ruby/*,config/*" --text-summary  --sort coverage]
     examples.rcov = true
   end
-
-  task :default => 'rcov'
+  
+  if RUBY_VERSION =~ /1.8/
+    task :default => "rcov"
+  else
+    task :default => "examples"
+  end
 rescue LoadError
   puts "Micronaut not available to run tests.  Install it with: sudo gem install spicycode-micronaut -s http://gems.github.com"
 end

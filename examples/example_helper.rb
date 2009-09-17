@@ -2,16 +2,11 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 $:.reject! { |e| e.include? 'TextMate' }
 ENV['RAILS_ENV'] = 'test' unless ENV['RAILS_ENV']
 
-require 'rubygems'
 require 'active_support'
 require 'action_controller'
 require 'action_controller/test_process'
 require 'active_record'
 
-gem "relevance-log_buddy", "~> 0.2"
-gem "spicycode-micronaut"
-gem "spicycode-micronaut-rails"
-gem 'mocha'
 require "mocha"
 require 'micronaut'
 require 'micronaut-rails'
