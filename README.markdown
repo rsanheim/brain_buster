@@ -16,7 +16,7 @@ Install
 
 First, install from GitHub:
 
-    script/plugin install http://github.com/rsanheim/brain_buster.git
+    script/plugin install git://github.com/rsanheim/brain_buster.git
   
 Generate the migration, modifying the stock questions and answers if you wish, and migrate:
 
