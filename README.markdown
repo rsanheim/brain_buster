@@ -87,9 +87,6 @@ Links
 -----
 [Homepage](http://github.com/rsanheim/brain_buster) is on GitHub.
 
-[Mailing List](http://groups.google.com/group/brainbuster-discuss) for questions.
-
-[Continuous Integration](http://runcoderun.com/rsanheim/brain_buster) is hosted on RunCodeRun.
 
 Credits
 -------
